@@ -48,8 +48,11 @@
 <div class="words-left">Осталось слов: <span class='numWordsLeft'></span></div> 
 <div class="current-level">Уровень: <span class='current-level-num'></span></div> 
 <div>Поменять число слов в одном уровне (по умолчанию 15)</div>
+<input type='number' class='level-choice'  id='wordsNumChoice' min=8 maxlength=4 value=8 onChange='setWordsInLevel(value)'> </input>
 <input type='color' value='#000000' onChange='changeBackground(value)'>Поменять цвет фона </input> 
 <input type='color' value ='#000000' onChange='changeFontColor(value)'>Поменять цвет букв </input> 
+
+<button>Восстановить исходные настройки</button>
 
 <script src='./words.js'></script>
 <script src='./index.js'></script>

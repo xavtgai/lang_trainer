@@ -58,7 +58,19 @@ const slova = Array.from(words);
 const allWords = shuffle(slova);
 //(или может шаффл currentLevel?)
 
-let numOfWordsInALevel = 3;
+
+let numOfWordsInALevel = localStorage.getItem('numOfWordsInALevel');
+if (numOfWordsInALevel) {setWordsInLevel(numOfWordsInALevel)
+} else {
+    numOfWordsInALevel = 10;
+}
+
+
+function setWordsInLevel(value) {
+    numOfWordsInALevel = value;
+    localStorage.setItem('numOfWordsInALevel', numOfWordsInALevel);
+}
+
 const numOfLevels = Math.floor(slova.length / numOfWordsInALevel);
 
 levelChoice.setAttribute('max', numOfLevels);
