@@ -27,7 +27,7 @@
     </header>
 <div class="headword">Абырвалг</div>
 <div class='verdict'></div>
-<button class="nextLevel invisible" >Ты сможешь пройти еще уровень!</div>
+<button class="nextLevel invisible" onClick='goToNextLevel()' >Ты сможешь пройти еще уровень!</div>
 <ul class="testwords">
     <li class="testword" id='button_1'>Осел</li>
     <li class="testword" id='button_2'>Козел</li>
@@ -37,29 +37,20 @@
     <li class="testword" id='button_6'>Абырвалг</li>
  </ul>
 
- <button class='newGame' onClick='javascript:openPopup()'> New game</button>
- <div class="popup popup_profile">
-    <div class="popup__content">
-        <button class="popup__close-button" type="button"></button>
-        <form action="action" class="popup__form popup__edit-profile" name="popupcontent" novalidate>
-            <h2 class="popup__title">Введите номер уровня (от 1 до ) или  all, чтобы учить все слова сразу</h2>
-            <input class="popup__field" type="text" value="" placeholder="1" name="level" maxlength=4 minlength=1 id="levelNum">
-            <span class="popup__error popup__error_name"></span>
-           
-            <span class="popup__error popup__error_job"></span>
-            <button class="popup__save" type="submit" aria-label="сохранить" disabled>Играть</button>
-        </form>
-    </div>
-</div>
-</div>
+ </div>
 <div>
-    <div>Укажите номер уровня от 1 до ...</div>
+    <div>Укажите номер уровня от 1 до <span id='max-level'></span></div>
     <!-- максимальный уровень надо задавать переменной -->
-<input type='number' class='level-choice'  id='levelChoice' min=1 maxlength=4 value='' onChange='chooseLevel(value)'> </input>
+<input type='number' class='level-choice'  id='levelChoice' min=1 maxlength=4 value=1 onChange='chooseLevel(value)'> </input>
 <div>или</div>
 <input class="choose-all" type="button" value="Учить всё сразу!" name="all" id="chooseAll" onClick='chooseLevel("all")' />
 </div>
 <div class="words-left">Осталось слов: <span class='numWordsLeft'></span></div> 
+<div class="current-level">Уровень: <span class='current-level-num'></span></div> 
+<div>Поменять число слов в одном уровне (по умолчанию 15)</div>
+<input type='color' value='#000000' onChange='changeBackground(value)'>Поменять цвет фона </input> 
+<input type='color' value ='#000000' onChange='changeFontColor(value)'>Поменять цвет букв </input> 
+
 <script src='./words.js'></script>
 <script src='./index.js'></script>
 </body>
