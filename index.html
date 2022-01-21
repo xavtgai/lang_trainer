@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="Ru">
 
+<!-- Выбор формата
+Работа с уровнями
+Функция для оценки результата
+Верстка -->
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +16,18 @@
 </head>
 <body class="page">
 <div class='page__content'>
-    <header class="header"></header>
+    <header class="header">
+        <ul class='format_options'>
+        <input onclick="setFormat('word', 'translation')" type="radio" class='format' CHECKED name="format">LanguageX to Russian<br />
+        <input onclick="setFormat('translation', 'word')" type="radio" class='format' name="format">Russian to LanguageX <br />
+        <input onclick="setFormat('word','transcription')" type="radio" class='format' name="format">LanguageX to transcription<br />
+        <input onclick="setFormat('transcription','word')" type="radio" class='format' name="format">Transcription to LanguageX<br />
+    </ul>
+
+    </header>
 <div class="headword">Абырвалг</div>
 <div class='verdict'></div>
-
+<button class="nextLevel invisible" >Ты сможешь пройти еще уровень!</div>
 <ul class="testwords">
     <li class="testword" id='button_1'>Осел</li>
     <li class="testword" id='button_2'>Козел</li>
@@ -31,14 +45,21 @@
             <h2 class="popup__title">Введите номер уровня (от 1 до ) или  all, чтобы учить все слова сразу</h2>
             <input class="popup__field" type="text" value="" placeholder="1" name="level" maxlength=4 minlength=1 id="levelNum">
             <span class="popup__error popup__error_name"></span>
-            <input class="popup__field" type="button" value="Учить всё сразу!" name="all" id="chooseAll">
+           
             <span class="popup__error popup__error_job"></span>
             <button class="popup__save" type="submit" aria-label="сохранить" disabled>Играть</button>
         </form>
     </div>
 </div>
-
 </div>
+<div>
+    <div>Укажите номер уровня от 1 до ...</div>
+    <!-- максимальный уровень надо задавать переменной -->
+<input type='number' class='level-choice'  id='levelChoice' min=1 maxlength=4 value='' onChange='chooseLevel(value)'> </input>
+<div>или</div>
+<input class="choose-all" type="button" value="Учить всё сразу!" name="all" id="chooseAll" onClick='chooseLevel("all")' />
+</div>
+<div class="words-left">Осталось слов: <span class='numWordsLeft'></span></div> 
 <script src='./words.js'></script>
 <script src='./index.js'></script>
 </body>

@@ -32,3 +32,11 @@
     background-color: red;
 }
 
+.invisible {
+    visibility: hidden;
+}
+.visible {
+    visibility: visible;
+}
+.format_options {display: flex;
+justify-content: space-between;}
