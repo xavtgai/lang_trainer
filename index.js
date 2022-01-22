@@ -1,6 +1,6 @@
 const testword = Array.from(document.querySelectorAll('.testword'));
 const button1 = document.getElementById('button_1');
-const verdict = document.querySelector('.verdict');
+const verdict = document.getElementById('verdict');
 const popup = document.querySelector('.popup');
 const wordsLeft = document.querySelector('.numWordsLeft');
 const nextLevelButton = document.querySelector('.nextLevel');
@@ -62,14 +62,31 @@ const allWords = shuffle(slova);
 let numOfWordsInALevel = localStorage.getItem('numOfWordsInALevel');
 if (numOfWordsInALevel) {setWordsInLevel(numOfWordsInALevel)
 } else {
-    numOfWordsInALevel = 10;
+    numOfWordsInALevel = 12;
 }
 
-
+//эта функция пока отключена. В будущем может прикручу в настройки.
 function setWordsInLevel(value) {
     numOfWordsInALevel = value;
     localStorage.setItem('numOfWordsInALevel', numOfWordsInALevel);
 }
+
+
+function restoreDefaultSettings() {
+    numOfWordsInALevel = 12;
+    localStorage.setItem('numOfWordsInALevel', numOfWordsInALevel);
+    
+    let backColor = '#ffe9a8'
+    document.body.style.backgroundColor = backColor;
+    localStorage.setItem('bgColor', backColor);
+
+    let fontCol = '#0000ff';
+    testword.forEach((cell) => {cell.style.color = fontCol})
+    main.style.color = fontCol;
+    localStorage.setItem('fontColor', fontCol)
+
+}
+
 
 const numOfLevels = Math.floor(slova.length / numOfWordsInALevel);
 
@@ -109,7 +126,7 @@ function chooseLevel(value) {
 chooseLevel(1);
 
 function goToNextLevel() {
-    nextLevelButton.classList.add('invisible')
+    nextLevelButton.classList.add('invisible_button')
     chooseLevel(currentLevelNum*1 + 1)
 }
 
@@ -120,21 +137,23 @@ function setFormat(headword, answerOptions) {
     showNewWord ();
 }
 
-// Делаем массив со всеми ответами и при каждом новом слове надо приписывать кнопкам 
-//набор из 1 правильного ответа и остальных (по числу кнопок) неправильных.
-
-//номер текущего уровня
-
 function showVerdict(result) 
-{
+{   
+    testword.forEach((item) => {
+        if (item.textContent !== currentLevel[0][answers]) 
+            item.classList.add('invisible')
+            }
+            )
     if (result === 'correct')
         {
-            verdict.classList.remove('verdict_wrong');
-            verdict.classList.add('verdict_true');
+            main.style.padding = '5px';
+            main.classList.remove('verdict_wrong');
+            main.classList.add('verdict_true');
         }
     else {
-        verdict.classList.remove('verdict_true');
-        verdict.classList.add('verdict_wrong');
+        main.style.padding = '5px';
+        main.classList.remove('verdict_true');
+        main.classList.add('verdict_wrong');
     
     }
 }
@@ -174,11 +193,11 @@ function checkAnswer (e) {
     if (e.target.innerText === currentLevel[0][answers]) {
         console.log('Правильно: ', currentLevel[0][answers], 'Вот и Твой ответ: ', e.target.innerText);
         showVerdict('correct');
-        setTimeout(showNewWord, 500);
+        setTimeout(showNewWord, 1500);
         currentLevel.shift();
         } else { 
             showVerdict('wrong');
-            setTimeout(showNewWord, 500);
+            setTimeout(showNewWord, 1500);
             currentLevel.push(currentLevel[0]);
             numWrongAnswers +=1;
             console.log('Правильно: ', currentLevel[0][answers], 'Твой ответ: ', e.target.innerText);
@@ -189,8 +208,9 @@ function checkAnswer (e) {
 }
 
 function showNewWord () {
-    if (verdict.classList.contains('verdict_true')) {verdict.classList.remove('verdict_true')};
-    if (verdict.classList.contains('verdict_wrong')) {verdict.classList.remove('verdict_wrong')};
+    main.style.padding = '12px';
+    if (main.classList.contains('verdict_true')) {main.classList.remove('verdict_true')};
+    if (main.classList.contains('verdict_wrong')) {main.classList.remove('verdict_wrong')};
     
     if (currentLevel.length !== 0)
         
@@ -201,15 +221,22 @@ function showNewWord () {
         
             //добавляем в массив ответов правильное слово
         wordsForAnswerOptions.push(currentLevel[0][answers]);
+        // console.log('correct answer in options', wordsForAnswerOptions);
         let testwords_to_buttons = 1;
+        
 
-        for (let i=0; testwords_to_buttons <= testword.length; i++ ) 
+        for (let i=0; testwords_to_buttons < testword.length; i++ ) 
             { if (allWords[i][question] !== headword.innerText)  
-                wordsForAnswerOptions.push(allWords[i][answers]);
-                testwords_to_buttons+=1 }
+                {wordsForAnswerOptions.push(allWords[i][answers]);
+                testwords_to_buttons+=1;
+
+                } 
+            }
             shuffle(wordsForAnswerOptions);
+            console.log('options', wordsForAnswerOptions);
 
         testword.forEach((word) => { 
+            word.classList.remove('invisible');
             word.addEventListener('click', checkAnswer);
             word.innerHTML = wordsForAnswerOptions[0];
             wordsForAnswerOptions.shift();
@@ -224,9 +251,12 @@ function showNewWord () {
 
 function score (numOfWordsInTheLevel) {
     if (numWrongAnswers === 0) {
-        headword.innerText =  'Офигеть! Ваще без ошибок' }
-    else {headword.innerText =  `Ну ты и лузер, ошибок у тебя -  ${numWrongAnswers}`}
+        headword.innerText =  'Ни одной ошибки! Потрясающе!' }
+    else if (numWrongAnswers === 1) {
+        headword.innerText =  `Почти получилось! Всего 1 ошибка` 
+    }
+    else {headword.innerText =  `Есть над чем поработать, ошибок у тебя -  ${numWrongAnswers}`}
 //если существуют еще уровни, то показываем кнопку перехода на следующий уровень
-    if (currentLevelNum < numOfLevels) {nextLevelButton.classList.remove('invisible')};
+    if (currentLevelNum < numOfLevels) {nextLevelButton.classList.remove('invisible_button')};
 }
 

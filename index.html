@@ -1,33 +1,65 @@
 <!DOCTYPE html>
 <html lang="Ru">
 
-<!-- Выбор формата
-Работа с уровнями
-Функция для оценки результата
+<!-- Функция для оценки результата
 Верстка -->
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./index.css">
-
+    <link rel="stylesheet" href="./index.css" MEDIA=screen>
+    <link rel='icon' href='https://altaica.ru/image/favicon.ico' type='image/x-icon'>
     <title>Language trainer</title>
+    <meta name="description" content="Онлайн игра для изучения китайской лексики" />
+
+        <!-- Yandex.Metrika counter -->
+        <script type='text/javascript'>
+            (function(m, e, t, r, i, k, a) {
+                m[i] = m[i] || function() {
+                    (m[i].a = m[i].a || []).push(arguments)
+                };
+                m[i].l = 1 * new Date();
+                k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+            })
+            (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+    
+            ym(738222, 'init', {
+                clickmap: true,
+                trackLinks: true,
+                accurateTrackBounce: true,
+                webvisor: true
+            });
+        </script>
+        <noscript><div><img src='https://mc.yandex.ru/watch/738222' style='position:absolute; left:-9999px;' alt='' /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+
 </head>
+
 <body class="page">
 <div class='page__content'>
     <header class="header">
         <ul class='format_options'>
-        <input onclick="setFormat('word', 'translation')" type="radio" class='format' CHECKED name="format">LanguageX to Russian<br />
-        <input onclick="setFormat('translation', 'word')" type="radio" class='format' name="format">Russian to LanguageX <br />
-        <input onclick="setFormat('word','transcription')" type="radio" class='format' name="format">LanguageX to transcription<br />
-        <input onclick="setFormat('transcription','word')" type="radio" class='format' name="format">Transcription to LanguageX<br />
+            <div class="form_radio_btn">
+                <input onclick="setFormat('word', 'translation')" id='radio-5' type="radio" name="format" CHECKED>
+                <label for="radio-5">С китайского на русский</label>
+            </div>
+         <div class="form_radio_btn">
+            <input onclick="setFormat('translation', 'word')" id='radio-6' type="radio" name="format">
+            <label for="radio-6">С русского на китайский</label>
+        </div>
+        <div class="form_radio_btn">
+            <input onclick="setFormat('word','transcription')" id='radio-7' type="radio" name="format">
+            <label for="radio-7">Иероглифы - Пиньин</label>
+        </div>
+        <div class="form_radio_btn">
+            <input onclick="setFormat('transcription','word')" id='radio-8' type="radio" name="format">
+            <label for="radio-8">Пиньин - Иероглифы</label>
+        </div>
     </ul>
-
     </header>
-<div class="headword">Абырвалг</div>
-<div class='verdict'></div>
-<button class="nextLevel invisible" onClick='goToNextLevel()' >Ты сможешь пройти еще уровень!</div>
+<div class="question"><div class="headword">Абырвалг</div></div>
+<!-- <div class='verdict'><div id='verdict'></div></div> -->
+<button class="nextLevel buttons invisible_button" onClick='goToNextLevel()' >Ты сможешь пройти еще уровень!</button>
+
 <ul class="testwords">
     <li class="testword" id='button_1'>Осел</li>
     <li class="testword" id='button_2'>Козел</li>
@@ -37,23 +69,47 @@
     <li class="testword" id='button_6'>Абырвалг</li>
  </ul>
 
- </div>
-<div>
-    <div>Укажите номер уровня от 1 до <span id='max-level'></span></div>
-    <!-- максимальный уровень надо задавать переменной -->
-<input type='number' class='level-choice'  id='levelChoice' min=1 maxlength=4 value=1 onChange='chooseLevel(value)'> </input>
-<div>или</div>
-<input class="choose-all" type="button" value="Учить всё сразу!" name="all" id="chooseAll" onClick='chooseLevel("all")' />
+    <div class='gameStart'>Укажите номер уровня от 1 до <span id='max-level'></span>
+        <input type='number' class='level-choice'  id='levelChoice' min=1 maxlength=4 value=1 onChange='chooseLevel(value)'> </input>
+или нажмите
+<input class="choose-all buttons" type="button" value="Учить всё сразу!" name="all" id="chooseAll" onClick='chooseLevel("all")' />
 </div>
 <div class="words-left">Осталось слов: <span class='numWordsLeft'></span></div> 
 <div class="current-level">Уровень: <span class='current-level-num'></span></div> 
-<div>Поменять число слов в одном уровне (по умолчанию 15)</div>
-<input type='number' class='level-choice'  id='wordsNumChoice' min=8 maxlength=4 value=8 onChange='setWordsInLevel(value)'> </input>
+<!-- <div>Поменять число слов в одном уровне (по умолчанию 12)</div>
+<input type='number' class='level-choice'  id='wordsNumChoice' min=8 maxlength=4 value=15 onChange='setWordsInLevel(value)'> </input> -->
+
+<div class="mobile-footer">
+    <ul class='format_options'>
+        <div class="form_radio_btn">
+            <input onclick="setFormat('word', 'translation')" id='radio-1' type="radio" name="format1" CHECKED>
+            <label for="radio-1">С китайского на русский</label>
+        </div>
+     <div class="form_radio_btn">
+        <input onclick="setFormat('translation', 'word')" id='radio-2' type="radio" name="format1">
+        <label for="radio-2">С русского на китайский</label>
+    </div>
+    <div class="form_radio_btn">
+        <input onclick="setFormat('word','transcription')" id='radio-3' type="radio" name="format1">
+        <label for="radio-3">Иероглифы - Пиньин</label>
+    </div>
+    <div class="form_radio_btn">
+        <input onclick="setFormat('transcription','word')" id='radio-4' type="radio" name="format1">
+        <label for="radio-4">Пиньин - Иероглифы</label>
+    </div>
+</ul>
+ </div>
+
+ <div class="settings">
 <input type='color' value='#000000' onChange='changeBackground(value)'>Поменять цвет фона </input> 
 <input type='color' value ='#000000' onChange='changeFontColor(value)'>Поменять цвет букв </input> 
 
-<button>Восстановить исходные настройки</button>
+<button class='buttons' onClick ="restoreDefaultSettings()">Восстановить исходные настройки</button>
+</div>
+ 
 
+<div class="footer "> Copyright © 2022 Илья Грунтов <a href="https://altaica.ru ">Monumenta Altaica</a></div>
+ 
 <script src='./words.js'></script>
 <script src='./index.js'></script>
 </body>
