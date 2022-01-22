@@ -14,10 +14,10 @@
 }
 .body {
     background-color: #ffe9a8;
-}
+    }
 
 .page {
-    
+    background-color: #ffe9a8;
     position: relative;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -32,6 +32,7 @@
 .header {
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 7px;
 }
 
 .question {
@@ -87,11 +88,17 @@ justify-content: center;
 .mobile-footer {
     display: none;
 }
-
+.levelNumbersChoice {
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
 .buttons {
+    box-sizing: border-box;
     text-align: center;
     cursor: hand;
-    margin-top: 10px;
     background: #b5bdc8;
     background: linear-gradient(to top, #ffdb8b 0%, #ff6e4a 36%, #b87333 100%);
     font-size: 20px;
@@ -205,12 +212,54 @@ input[type="number"] {
 	border: 1px solid #ddd;
 	font-size: 14px;
 	border-radius: 13px;
+    text-align: center;
+	-moz-appearance: textfield;
+	-webkit-appearance: textfield;
+	appearance: textfield;
+
 } 
  
 input[type="number"]:focus {
 	outline: 2px solid blue;
 }
 
+.number {
+	position: relative;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.number-minus {
+
+	width: 25px;
+    height: 25px;
+	padding: 0;
+    margin: 0;
+	text-align: center;
+	border: none;
+	border-right: 1px solid #ddd;
+	font-size: 16px;
+	font-weight: 600;
+}
+.number-plus {
+	
+	width: 25px;
+    height: 25px;
+	padding: 0;
+    margin-left: -25px;
+    margin:0;
+	text-align: center;
+	border: none;
+	border-left: 1px solid #ddd;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.nextLevel {
+    display: flex;
+    justify-content: center;
+}
 
 @media screen and (max-width: 600px) {
     .header {
@@ -231,6 +280,10 @@ input[type="number"]:focus {
         font-size: 25px;
 
     }
+    .testword:hover {
+        opacity: 1;
+    }
+    
     .buttons {
         font-size: 14px;
         padding: 5px;
@@ -241,6 +294,10 @@ input[type="number"]:focus {
     .settings {
         display: flex;
         flex-direction: column;
+    }
+    .number {
+    flex-direction: column;
+        align-items: center;
     }
         
 }

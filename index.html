@@ -58,7 +58,7 @@
     </header>
 <div class="question"><div class="headword">Абырвалг</div></div>
 <!-- <div class='verdict'><div id='verdict'></div></div> -->
-<button class="nextLevel buttons invisible_button" onClick='goToNextLevel()' >Ты сможешь пройти еще уровень!</button>
+<div nextLevel ><button class="buttons invisible_button" onClick='goToNextLevel()' >Ты сможешь пройти еще уровень!</button></div>
 
 <ul class="testwords">
     <li class="testword" id='button_1'>Осел</li>
@@ -69,10 +69,18 @@
     <li class="testword" id='button_6'>Абырвалг</li>
  </ul>
 
-    <div class='gameStart'>Укажите номер уровня от 1 до <span id='max-level'></span>
-        <input type='number' class='level-choice'  id='levelChoice' min=1 maxlength=4 value=1 onChange='chooseLevel(value)'> </input>
-или нажмите
+ <div class="number">
+        <div class='levelNumbersChoice'><div>Укажите номер уровня от 1 до <span id='max-level'></span></div>
+            <div class='figures'>
+            <button class="number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+            <input type='number' class='level-choice'  id='levelChoice' min=1 maxlength=4 value=1 onChange='chooseLevel(value)'> </input>
+            <button class="number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+            </div>
+        </div>
+<div>
+        или нажмите
 <input class="choose-all buttons" type="button" value="Учить всё сразу!" name="all" id="chooseAll" onClick='chooseLevel("all")' />
+</div>
 </div>
 <div class="words-left">Осталось слов: <span class='numWordsLeft'></span></div> 
 <div class="current-level">Уровень: <span class='current-level-num'></span></div> 

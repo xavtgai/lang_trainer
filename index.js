@@ -9,6 +9,8 @@ const level = document.querySelector('.current-level-num');
 const main = document.querySelector('.headword');
 const maxLevel = document.getElementById('max-level');
 
+let numWrongAnswers = 0;
+let numCorrectAnswers = 0;
 
 function changeBackground(value)
 {   let colour = value;
@@ -96,7 +98,6 @@ maxLevel.innerHTML = numOfLevels;
 
 let currentLevelNum = 0;
 let currentLevel = shuffle(slova.slice());
-console.log(numOfLevels, 'numOfL')
 
 //если остается еще несколько слов после последнего уровня, но на целый уровень не хватит,
 // подгеребем их в последний уровень
@@ -104,8 +105,15 @@ function chooseLevel(value) {
     
     if (value > numOfLevels) {alert('bad level')}
     currentLevelNum = value;
-    let startOfTheLevel = numOfWordsInALevel * (currentLevelNum-1);
-    let endOfTheLevel= startOfTheLevel +  numOfWordsInALevel;
+    numWrongAnswers = 0;
+    numCorrectAnswers = 0;
+    console.log(numOfWordsInALevel);
+    if ( numOfWordsInALevel === slova.length) {
+        numOfWordsInALevel = localStorage.getItem('numOfWordsInALevel') ? localStorage.getItem('numOfWordsInALevel') : 12 }
+    let startOfTheLevel = numOfWordsInALevel * (currentLevelNum*1 -1);
+    
+    let endOfTheLevel= startOfTheLevel*1 +  numOfWordsInALevel*1;
+    
     if (slova.length - endOfTheLevel < numOfWordsInALevel) endOfTheLevel = slova.length; 
     level.innerHTML = currentLevelNum;
     if (value === 'all') 
@@ -117,9 +125,9 @@ function chooseLevel(value) {
         };
 
     
-    currentLevel = shuffle(slova.slice(startOfTheLevel, endOfTheLevel ))
+    currentLevel = shuffle(slova.slice(startOfTheLevel, endOfTheLevel ));
     wordsLeft.innerHTML = currentLevel.length;
-       
+    console.log('start', startOfTheLevel, 'end', endOfTheLevel, 'cl', currentLevel);
     showNewWord ();
 }
 
@@ -185,8 +193,6 @@ function openPopup() {
 //         }
 //     })
 
-let numWrongAnswers = 0;
-let numCorrectAnswers = 0;
 
 function checkAnswer (e) {
    
@@ -195,6 +201,7 @@ function checkAnswer (e) {
         showVerdict('correct');
         setTimeout(showNewWord, 1500);
         currentLevel.shift();
+        numCorrectAnswers+=1;
         } else { 
             showVerdict('wrong');
             setTimeout(showNewWord, 1500);
@@ -233,7 +240,7 @@ function showNewWord () {
                 } 
             }
             shuffle(wordsForAnswerOptions);
-            console.log('options', wordsForAnswerOptions);
+           
 
         testword.forEach((word) => { 
             word.classList.remove('invisible');
@@ -243,20 +250,26 @@ function showNewWord () {
         });
     }
     else {
-        headword.innerText =  'Ваш результат'
-        score(20);
+        score();
     }
 }
 // showNewWord ();
 
-function score (numOfWordsInTheLevel) {
-    if (numWrongAnswers === 0) {
-        headword.innerText =  'Ни одной ошибки! Потрясающе!' }
+function score () {
+    if (numWrongAnswers === 0 && numCorrectAnswers == 0 ) return;
+    if (numWrongAnswers === 0 && numCorrectAnswers > 0 ) {
+        headword.innerText =  'Ни одной ошибки! Потрясающе!';
+    }
     else if (numWrongAnswers === 1) {
         headword.innerText =  `Почти получилось! Всего 1 ошибка` 
     }
     else {headword.innerText =  `Есть над чем поработать, ошибок у тебя -  ${numWrongAnswers}`}
+    testword.forEach((item) => {
+             item.classList.add('invisible')
+            });
+    
 //если существуют еще уровни, то показываем кнопку перехода на следующий уровень
     if (currentLevelNum < numOfLevels) {nextLevelButton.classList.remove('invisible_button')};
+
 }
 
