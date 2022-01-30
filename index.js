@@ -56,8 +56,9 @@ function shuffle(array) {
   }
 
 const slova = Array.from(words);  
+
 //слайс нужен чтобы создать отдельную копию массива
-const allWords = shuffle(slova);
+const allWords = shuffle(slova.slice());
 //(или может шаффл currentLevel?)
 
 
@@ -89,7 +90,6 @@ function restoreDefaultSettings() {
 
 }
 
-
 const numOfLevels = Math.floor(slova.length / numOfWordsInALevel);
 
 levelChoice.setAttribute('max', numOfLevels);
@@ -97,17 +97,17 @@ maxLevel.innerHTML = numOfLevels;
 
 
 let currentLevelNum = 0;
-let currentLevel = shuffle(slova.slice());
+let currentLevel = shuffle(slova.slice(0, numOfWordsInALevel));
 
 //если остается еще несколько слов после последнего уровня, но на целый уровень не хватит,
 // подгеребем их в последний уровень
 function chooseLevel(value) {
     
-    if (value > numOfLevels) {alert('bad level')}
+    if (value > numOfLevels || value <= 0) {alert('bad level')}
     currentLevelNum = value;
     numWrongAnswers = 0;
     numCorrectAnswers = 0;
-    console.log(numOfWordsInALevel);
+    
     if ( numOfWordsInALevel === slova.length) {
         numOfWordsInALevel = localStorage.getItem('numOfWordsInALevel') ? localStorage.getItem('numOfWordsInALevel') : 12 }
     let startOfTheLevel = numOfWordsInALevel * (currentLevelNum*1 -1);
@@ -126,8 +126,9 @@ function chooseLevel(value) {
 
     
     currentLevel = shuffle(slova.slice(startOfTheLevel, endOfTheLevel ));
+    
     wordsLeft.innerHTML = currentLevel.length;
-    console.log('start', startOfTheLevel, 'end', endOfTheLevel, 'cl', currentLevel);
+    
     showNewWord ();
 }
 
@@ -195,9 +196,11 @@ function openPopup() {
 
 
 function checkAnswer (e) {
-   
+    testword.forEach((word) => { 
+        word.removeEventListener('click', checkAnswer);
+     });
     if (e.target.innerText === currentLevel[0][answers]) {
-        console.log('Правильно: ', currentLevel[0][answers], 'Вот и Твой ответ: ', e.target.innerText);
+        
         showVerdict('correct');
         setTimeout(showNewWord, 1500);
         currentLevel.shift();
@@ -207,13 +210,12 @@ function checkAnswer (e) {
             setTimeout(showNewWord, 1500);
             currentLevel.push(currentLevel[0]);
             numWrongAnswers +=1;
-            console.log('Правильно: ', currentLevel[0][answers], 'Твой ответ: ', e.target.innerText);
+        
             
     }
     wordsLeft.innerHTML = currentLevel.length;
-    console.log('current one level', currentLevel)
+    
 }
-
 function showNewWord () {
     main.style.padding = '12px';
     if (main.classList.contains('verdict_true')) {main.classList.remove('verdict_true')};
@@ -228,7 +230,7 @@ function showNewWord () {
         
             //добавляем в массив ответов правильное слово
         wordsForAnswerOptions.push(currentLevel[0][answers]);
-        // console.log('correct answer in options', wordsForAnswerOptions);
+        
         let testwords_to_buttons = 1;
         
 
@@ -269,6 +271,7 @@ function score () {
             });
     
 //если существуют еще уровни, то показываем кнопку перехода на следующий уровень
+            
     if (currentLevelNum < numOfLevels) {nextLevelButton.classList.remove('invisible_button')};
 
 }

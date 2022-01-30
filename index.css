@@ -256,7 +256,7 @@ input[type="number"]:focus {
 	font-weight: 600;
 }
 
-.nextLevel {
+.nextLevel_button {
     display: flex;
     justify-content: center;
 }

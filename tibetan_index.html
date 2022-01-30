@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="Ru">
 
-<!-- Функция для оценки результата
-Верстка -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css" MEDIA=screen>
     <link rel='icon' href='https://altaica.ru/favicon.ico' type='image/x-icon'>
     <title>Language trainer</title>
-    <meta name="description" content="Онлайн игра для изучения китайской лексики" />
+    <meta name="description" content="Онлайн игра для изучения тибетской лексики" />
 
         <!-- Yandex.Metrika counter -->
         <script type='text/javascript'>
@@ -40,19 +38,19 @@
         <ul class='format_options'>
             <div class="form_radio_btn">
                 <input onclick="setFormat('word', 'translation')" id='radio-5' type="radio" name="format" CHECKED>
-                <label for="radio-5">С китайского на русский</label>
+                <label for="radio-5">С тибетского на русский</label>
             </div>
          <div class="form_radio_btn">
             <input onclick="setFormat('translation', 'word')" id='radio-6' type="radio" name="format">
-            <label for="radio-6">С русского на китайский</label>
+            <label for="radio-6">С русского на тибетский</label>
         </div>
-        <div class="form_radio_btn">
+        <!-- <div class="form_radio_btn">
             <input onclick="setFormat('word','transcription')" id='radio-7' type="radio" name="format">
             <label for="radio-7">Иероглифы - Пиньин</label>
-        </div>
+        </div> -->
         <div class="form_radio_btn">
-            <input onclick="setFormat('transcription','word')" id='radio-8' type="radio" name="format">
-            <label for="radio-8">Пиньин - Иероглифы</label>
+            <input onclick="setFormat('transcription','translation')" id='radio-8' type="radio" name="format">
+            <label for="radio-8">С транскрипции на русский</label>
         </div>
     </ul>
     </header>
@@ -91,34 +89,34 @@
     <ul class='format_options'>
         <div class="form_radio_btn">
             <input onclick="setFormat('word', 'translation')" id='radio-1' type="radio" name="format1" CHECKED>
-            <label for="radio-1">С китайского на русский</label>
+            <label for="radio-1">С тибетского на русский</label>
         </div>
      <div class="form_radio_btn">
         <input onclick="setFormat('translation', 'word')" id='radio-2' type="radio" name="format1">
-        <label for="radio-2">С русского на китайский</label>
+        <label for="radio-2">С русского на тибетский</label>
     </div>
-    <div class="form_radio_btn">
+    <!-- <div class="form_radio_btn">
         <input onclick="setFormat('word','transcription')" id='radio-3' type="radio" name="format1">
         <label for="radio-3">Иероглифы - Пиньин</label>
-    </div>
+    </div> -->
     <div class="form_radio_btn">
-        <input onclick="setFormat('transcription','word')" id='radio-4' type="radio" name="format1">
-        <label for="radio-4">Пиньин - Иероглифы</label>
+        <input onclick="setFormat('transcription','translation')" id='radio-8' type="radio" name="format">
+        <label for="radio-8">С транскрипции на русский</label>
     </div>
 </ul>
  </div>
 
  <div class="settings">
-<input type='color' value='#ffe9a8' oninput='changeBackground(value)'>Поменять цвет фона </input> 
-<input type='color' value ='#0000ff' oninput='changeFontColor(value)'>Поменять цвет букв </input> 
-
+    <input type='color' value='#ffe9a8' oninput='changeBackground(value)'>Поменять цвет фона </input> 
+    <input type='color' value ='#0000ff' oninput='changeFontColor(value)'>Поменять цвет букв </input> 
+    
 <button class='buttons' onClick ="restoreDefaultSettings()">Восстановить исходные настройки</button>
 </div>
  
 
-<div class="footer "> Copyright © 2022 Илья Грунтов <a href="https://altaica.ru ">Monumenta Altaica</a></div>
+<div class="footer "> Copyright © 2022 Илья Грунтов & Тамара Илюхина <a href="https://altaica.ru ">Monumenta Altaica</a></div>
  
-<script src='./words.js'></script>
+<script src='./tibetan_source_words.js'></script>
 <script src='./index.js'></script>
 </body>
 </html>
