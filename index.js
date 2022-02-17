@@ -225,6 +225,7 @@ function showNewWord () {
         
         {
             shuffle(currentLevel)
+            
             headword.innerText = currentLevel[0][question];
         let wordsForAnswerOptions = Array();
         
@@ -232,7 +233,7 @@ function showNewWord () {
         wordsForAnswerOptions.push(currentLevel[0][answers]);
         
         let testwords_to_buttons = 1;
-        
+        shuffle(allWords);
 
         for (let i=0; testwords_to_buttons < testword.length; i++ ) 
             { if (allWords[i][question] !== headword.innerText)  

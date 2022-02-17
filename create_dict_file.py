@@ -14,7 +14,10 @@ for item in dictionary:
             word,  translation = item.strip().split('\t')
             res.append({"word": word.strip(), "transcription": '', "translation": translation.strip()})
 
-filename = sys.argv[1] + '_words.js'
+if sys.argv[1].endswith('.txt'):
+    filename = sys.argv[1][:-4] + '_words.js'
+else:
+    filename = sys.argv[1] + '_words.js'
 print(filename)
 print ("const words = ", res, file=open(filename, "w"))
 
